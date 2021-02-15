@@ -21,4 +21,12 @@ public class AccidentService {
     public void create(Accident accident) {
         repository.addAccident(accident);
     }
+
+    public Accident findById(int id) {
+        return repository.findById(id);
+    }
+
+    public void update(int id, Accident accident) {
+        repository.updateAccident(id, accident);
+    }
 }

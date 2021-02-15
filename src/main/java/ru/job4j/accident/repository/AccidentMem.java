@@ -41,4 +41,15 @@ public class AccidentMem {
     public Map<Integer, Accident> getAccidents() {
         return accidents;
     }
+
+    public Accident findById(int id) {
+        return accidents.get(id);
+    }
+
+    public void updateAccident(int id, Accident accident) {
+        var acc = findById(id);
+        acc.setName(accident.getName());
+        acc.setText(accident.getText());
+        acc.setAddress(accident.getAddress());
+    }
 }

@@ -9,13 +9,14 @@
 <body>
 <div class="container">
     <div class="row">
+        <a href="<c:url value="/create" />">Добавить инцидент</a>
         <table class="table">
             <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
                 <th>Text</th>
-                <th>Address</th>
+                <th colspan="2">Address</th>
             </tr>
             </thead>
             <tbody>
@@ -25,6 +26,7 @@
                     <td>${accident.value.getName()}</td>
                     <td>${accident.value.getText()}</td>
                     <td>${accident.value.getAddress()}</td>
+                    <td><a href="<c:url value="/edit?id=${accident.value.getId()}"  />" class="btn btn-primary">edit</a></td>
                 </tr>
             </c:forEach>
             </tbody>
