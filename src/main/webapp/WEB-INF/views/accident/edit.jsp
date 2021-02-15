@@ -20,7 +20,12 @@
                         <label for="type" class="form-label">Type: </label>
                         <select name="type.id" id="type" class="form-select">
                             <c:forEach var="type" items="${types}">
-                                <option value="${type.id}">${type.name}</option>
+                                <c:if test="${type.id == accident.getType().getId()}" >
+                                    <option value="${type.id}" selected>${type.name}</option>
+                                </c:if>
+                                <c:if test="${type.id != accident.getType().getId()}" >
+                                    <option value="${type.id}">${type.name}</option>
+                                </c:if>
                             </c:forEach>
                         </select>
                     </td>
