@@ -9,27 +9,23 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class AccidentMem {
-    private static final AtomicInteger ACCIDENT_ID = new AtomicInteger(4);
+    private static final AtomicInteger ACCIDENT_ID = new AtomicInteger(0);
     private final Map<Integer, Accident> accidents = new HashMap<>();
 
-    public AccidentMem() {
-        accidents.put(0, new Accident(
-                0,
+    private AccidentMem() {
+        addAccident(new Accident(
                 "Irina Sorokina",
                 "Accident: 2 cars",
                 "Moscow, Lenin street"));
-        accidents.put(1, new Accident(
-                1,
+        addAccident(new Accident(
                 "Oleg Victorovich",
                 "Accident: 1 car with bad road",
                 "Ufa, Unknown road"));
-        accidents.put(2, new Accident(
-                2,
+        addAccident(new Accident(
                 "Ivan Ivanov",
                 "No information",
                 "No information"));
-        accidents.put(3, new Accident(
-                3,
+        addAccident(new Accident(
                 "NASA",
                 "Accident on Mars",
                 "Solar system, Mars"));
