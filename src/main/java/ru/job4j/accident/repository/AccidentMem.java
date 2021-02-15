@@ -58,11 +58,7 @@ public class AccidentMem {
     }
 
     public void updateAccident(int id, Accident accident) {
-        var acc = findById(id);
-        acc.setName(accident.getName());
-        acc.setType(accident.getType());
-        acc.setText(accident.getText());
-        acc.setAddress(accident.getAddress());
+        accidents.replace(id, accident);
     }
 
     public List<AccidentType> findAllAccidentTypes() {
