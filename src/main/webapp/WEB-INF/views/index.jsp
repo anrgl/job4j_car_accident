@@ -15,6 +15,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Type</th>
                 <th>Text</th>
                 <th colspan="2">Address</th>
             </tr>
@@ -24,6 +25,7 @@
                 <tr>
                     <td>${accident.value.getId()}</td>
                     <td>${accident.value.getName()}</td>
+                    <td>${accident.value.getType().getName()}</td>
                     <td>${accident.value.getText()}</td>
                     <td>${accident.value.getAddress()}</td>
                     <td><a href="<c:url value="/edit?id=${accident.value.getId()}"  />" class="btn btn-primary">edit</a></td>

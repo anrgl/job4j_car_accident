@@ -17,6 +17,14 @@
                         <input type="text" id="name" class="form-control" name="name" value="${accident.getName()}">
                     </td>
                     <td>
+                        <label for="type" class="form-label">Type: </label>
+                        <select name="type.id" id="type" class="form-select">
+                            <c:forEach var="type" items="${types}">
+                                <option value="${type.id}">${type.name}</option>
+                            </c:forEach>
+                        </select>
+                    </td>
+                    <td>
                         <label for="text" class="form-label">Text: </label>
                         <input type="text" id="text" class="form-control" name="text" value="${accident.getText()}">
                     </td>
