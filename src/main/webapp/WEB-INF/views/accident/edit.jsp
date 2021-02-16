@@ -30,6 +30,14 @@
                         </select>
                     </td>
                     <td>
+                        <label for="rule" class="form-label">Rule: </label>
+                        <select name="rIds" id="rule" class="form-select" multiple>
+                            <c:forEach var="rule" items="${rules}">
+                                <option value="${rule.id}">${rule.name}</option>
+                            </c:forEach>
+                        </select>
+                    </td>
+                    <td>
                         <label for="text" class="form-label">Text: </label>
                         <input type="text" id="text" class="form-control" name="text" value="${accident.getText()}">
                     </td>

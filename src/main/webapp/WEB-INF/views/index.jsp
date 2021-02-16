@@ -16,6 +16,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Type</th>
+                <th>Rule</th>
                 <th>Text</th>
                 <th colspan="2">Address</th>
             </tr>
@@ -26,9 +27,14 @@
                     <td>${accident.value.getId()}</td>
                     <td>${accident.value.getName()}</td>
                     <td>${accident.value.getType().getName()}</td>
+                    <td>
+                        <c:forEach var="rule" items="${accident.value.getRules()}">
+                        <p>${rule.getName()}</p>
+                        </c:forEach>
+                    </td>
                     <td>${accident.value.getText()}</td>
                     <td>${accident.value.getAddress()}</td>
-                    <td><a href="<c:url value="/edit?id=${accident.value.getId()}"  />" class="btn btn-primary">edit</a></td>
+                    <td><a href="<c:url value="/edit?id=${accident.value.getId()}" />" class="btn btn-primary">edit</a></td>
                 </tr>
             </c:forEach>
             </tbody>

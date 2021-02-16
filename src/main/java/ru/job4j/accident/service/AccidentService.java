@@ -1,42 +1,72 @@
 package ru.job4j.accident.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
+import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.repository.AccidentMem;
+import ru.job4j.accident.repository.AccidentTypeMem;
+import ru.job4j.accident.repository.RuleMem;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class AccidentService {
-    private final AccidentMem repository;
+    private final AccidentMem accidentRepository;
+    private final AccidentTypeMem accidentTypeRepository;
+    private final RuleMem ruleRepository;
 
-    public AccidentService(AccidentMem repository) {
-        this.repository = repository;
+    public AccidentService(AccidentMem accRep, AccidentTypeMem accTypeRep, RuleMem ruleRep) {
+        this.accidentRepository = accRep;
+        this.accidentTypeRepository = accTypeRep;
+        this.ruleRepository = ruleRep;
     }
 
     public Map<Integer, Accident> findAll() {
-        return repository.getAccidents();
+        return accidentRepository.getAccidents();
     }
 
     public void create(Accident accident) {
-        repository.addAccident(accident);
+        accidentRepository.addAccident(accident);
     }
 
     public Accident findById(int id) {
-        return repository.findById(id);
+        return accidentRepository.findById(id);
     }
 
     public void update(int id, Accident accident) {
-        repository.updateAccident(id, accident);
+        accidentRepository.updateAccident(id, accident);
     }
 
-    public List<AccidentType> findAllAccidentTypes() {
-        return repository.findAllAccidentTypes();
+    public Map<Integer, AccidentType> findAllAccidentTypes() {
+        return accidentTypeRepository.findAllAccidentTypes();
     }
 
     public AccidentType findAccidentTypeById(int typeId) {
-        return repository.findAccidentTypeById(typeId);
+        return accidentTypeRepository.findAccidentTypeById(typeId);
+    }
+
+    public Map<Integer, Rule> findAllRules() {
+        return ruleRepository.findAll();
+    }
+
+    public Set<Rule> findAllRulesByIds(String[] ids) {
+        return ruleRepository.findByIds(
+                Arrays.stream(ids)
+                .mapToInt(Integer::parseInt)
+                .toArray());
+    }
+
+    public void saveAccident(@ModelAttribute Accident accident, HttpServletRequest req) {
+        int typeId = accident.getType().getId();
+        var type = findAccidentTypeById(typeId);
+        String[] ids = req.getParameterValues("rIds");
+        Set<Rule> rules = findAllRulesByIds(ids);
+        accident.setType(type);
+        accident.setRules(rules);
     }
 }
