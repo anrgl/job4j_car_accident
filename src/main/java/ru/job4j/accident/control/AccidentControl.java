@@ -44,14 +44,16 @@ public class AccidentControl {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
-        service.saveAccident(accident, req);
+        String[] ids = req.getParameterValues("rIds");
+        service.saveAccident(accident, ids);
         service.create(accident);
         return "redirect:/";
     }
 
     @PostMapping("/update")
     public String update(int id, @ModelAttribute Accident accident, HttpServletRequest req) {
-        service.saveAccident(accident, req);
+        String[] ids = req.getParameterValues("rIds");
+        service.saveAccident(accident, ids);
         service.update(id, accident);
         return "redirect:/";
     }

@@ -9,7 +9,6 @@ import ru.job4j.accident.repository.AccidentMem;
 import ru.job4j.accident.repository.AccidentTypeMem;
 import ru.job4j.accident.repository.RuleMem;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
@@ -57,14 +56,13 @@ public class AccidentService {
     public Set<Rule> findAllRulesByIds(String[] ids) {
         return ruleRepository.findByIds(
                 Arrays.stream(ids)
-                .mapToInt(Integer::parseInt)
-                .toArray());
+                        .mapToInt(Integer::parseInt)
+                        .toArray());
     }
 
-    public void saveAccident(@ModelAttribute Accident accident, HttpServletRequest req) {
+    public void saveAccident(@ModelAttribute Accident accident, String[] ids) {
         int typeId = accident.getType().getId();
         var type = findAccidentTypeById(typeId);
-        String[] ids = req.getParameterValues("rIds");
         Set<Rule> rules = findAllRulesByIds(ids);
         accident.setType(type);
         accident.setRules(rules);

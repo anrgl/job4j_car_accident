@@ -11,6 +11,9 @@ public class Accident {
     private AccidentType type;
     private Set<Rule> rules;
 
+    public Accident() {
+    }
+
     public Accident(String name, AccidentType type, Set<Rule> rules, String text, String address) {
         this.name = name;
         this.type = type;
