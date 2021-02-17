@@ -22,9 +22,7 @@ public class RuleMem {
     public Set<Rule> findByIds(String[] ids) {
         Set<Rule> result = new HashSet<>();
         for (String id : ids) {
-            if (rules.containsKey(Integer.parseInt(id))) {
-                result.add(rules.get(id));
-            }
+            result.add(rules.get(Integer.parseInt(id)));
         }
         return result;
     }
