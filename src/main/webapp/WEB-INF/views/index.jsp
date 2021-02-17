@@ -24,17 +24,17 @@
             <tbody>
             <c:forEach var="accident" items="${accidents}">
                 <tr>
-                    <td>${accident.value.getId()}</td>
-                    <td>${accident.value.getName()}</td>
-                    <td>${accident.value.getType().getName()}</td>
+                    <td>${accident.getId()}</td>
+                    <td>${accident.getName()}</td>
+                    <td>${accident.getType().getName()}</td>
                     <td>
-                        <c:forEach var="rule" items="${accident.value.getRules()}">
+                        <c:forEach var="rule" items="${accident.getRules()}">
                         <p>${rule.getName()}</p>
                         </c:forEach>
                     </td>
-                    <td>${accident.value.getText()}</td>
-                    <td>${accident.value.getAddress()}</td>
-                    <td><a href="<c:url value="/edit?id=${accident.value.getId()}" />" class="btn btn-primary">edit</a></td>
+                    <td>${accident.getText()}</td>
+                    <td>${accident.getAddress()}</td>
+                    <td><a href="<c:url value="/edit?id=${accident.getId()}" />" class="btn btn-primary">edit</a></td>
                 </tr>
             </c:forEach>
             </tbody>

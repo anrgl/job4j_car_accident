@@ -7,54 +7,57 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.service.AccidentService;
+import ru.job4j.accident.repository.AccidentJdbcTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @Controller
 public class AccidentControl {
-    private final AccidentService service;
+    private final AccidentJdbcTemplate accidents;
 
-    public AccidentControl(AccidentService service) {
-        this.service = service;
+    public AccidentControl(AccidentJdbcTemplate accidents) {
+        this.accidents = accidents;
     }
 
     @GetMapping("/create")
     public String create(Model model) {
-        var types = service.findAllAccidentTypes();
-        var rules = service.findAllRules();
+        var types = accidents.findAllAccidentTypes();
+        var rules = accidents.findAllRules();
         model.addAllAttributes(Map.of(
-                "types", types.values(),
-                "rules", rules.values()));
+                "types", types,
+                "rules", rules));
         return "accident/create";
     }
 
     @GetMapping("/edit")
     public String edit(@RequestParam("id") int id, Model model) {
-        var types = service.findAllAccidentTypes();
-        var accident = service.findById(id);
-        var rules = service.findAllRules();
+        var types = accidents.findAllAccidentTypes();
+        var accident = accidents.findAccidentById(id);
+        var rules = accidents.findAllRules();
         model.addAllAttributes(Map.of(
                 "accident", accident,
-                "types", types.values(),
-                "rules", rules.values()));
+                "types", types,
+                "rules", rules));
         return "accident/edit";
     }
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
         String[] ids = req.getParameterValues("rIds");
-        service.saveAccident(accident, ids);
-        service.create(accident);
+        int accidentId = accidents.save(accident).getId();
+        accidents.saveAccidentRule(accidentId, ids);
         return "redirect:/";
     }
 
     @PostMapping("/update")
-    public String update(int id, @ModelAttribute Accident accident, HttpServletRequest req) {
+    public String update(@RequestParam("id") int id,
+                         @ModelAttribute Accident accident,
+                         HttpServletRequest req) {
         String[] ids = req.getParameterValues("rIds");
-        service.saveAccident(accident, ids);
-        service.update(id, accident);
+        accidents.update(id, accident);
+        accidents.deleteAccidentRule(id);
+        accidents.saveAccidentRule(id, ids);
         return "redirect:/";
     }
 }
