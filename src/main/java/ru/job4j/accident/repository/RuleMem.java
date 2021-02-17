@@ -19,10 +19,10 @@ public class RuleMem {
         return rules;
     }
 
-    public Set<Rule> findByIds(int[] ids) {
+    public Set<Rule> findByIds(String[] ids) {
         Set<Rule> result = new HashSet<>();
-        for (int id : ids) {
-            if (rules.containsKey(id)) {
+        for (String id : ids) {
+            if (rules.containsKey(Integer.parseInt(id))) {
                 result.add(rules.get(id));
             }
         }
