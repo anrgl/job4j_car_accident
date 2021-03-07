@@ -28,7 +28,7 @@
                     <td>${accident.getName()}</td>
                     <td>${accident.getType().getName()}</td>
                     <td>
-                        <c:forEach var="rule" items="${accident.getRules()}">
+                        <c:forEach var="rule" items="${accident.rules}">
                         <p>${rule.getName()}</p>
                         </c:forEach>
                     </td>

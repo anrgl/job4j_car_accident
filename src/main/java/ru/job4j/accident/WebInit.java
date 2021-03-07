@@ -4,7 +4,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
-import ru.job4j.accident.config.JdbcConfig;
+import ru.job4j.accident.config.HbmConfig;
 import ru.job4j.accident.config.WebConfig;
 
 import javax.servlet.FilterRegistration;
@@ -16,7 +16,7 @@ public class WebInit implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.register(WebConfig.class, JdbcConfig.class);
+        context.register(WebConfig.class, HbmConfig.class);
         context.refresh();
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         filter.setEncoding("UTF-8");
