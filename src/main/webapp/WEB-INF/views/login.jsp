@@ -30,6 +30,7 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
     </div>
+    <a href="<c:url value='/reg'/>">Регистрация</a>
 </div>
 </body>
 </html>
